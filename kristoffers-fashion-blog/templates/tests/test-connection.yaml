@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "kristoffers-fashion-blog.fullname" . }}-test-connection"
+  labels:
+    {{- include "kristoffers-fashion-blog.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "kristoffers-fashion-blog.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
