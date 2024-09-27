@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 01.testing-1-2
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ''
+    namespace: Kristoffer
+    server: https://kubernetes.default.svc
+  source:
+    path: Kristoffers-fashion-blog
+    repoURL: https://github.com/Kristoffer/idp
+    targetRevision: HEAD
+  sources: []
+  project: idp-project
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
